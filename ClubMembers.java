@@ -5,11 +5,19 @@ public class ClubMembers {
     /** Adds new club members to memberList, as described in part (a).
      * Precondition: names is a non-empty array.
      */
+    public ClubMembers () {
+        memberList = new ArrayList<MemberInfo>();
+    }
+
     public void addMembers(String[] names, int gradYear)
     { /* to be implemented in part (a) */
         for (String name: names) {
             memberList.add(new MemberInfo(name, gradYear, true));
         }
+    }
+
+    public void addMembers (ArrayList<MemberInfo> members)  {
+        memberList = members;
     }
     /** Removes members who have graduated and returns a list of members who have graduated
      * and are in good standing, as described in part (b).
@@ -17,17 +25,21 @@ public class ClubMembers {
     public ArrayList<MemberInfo> removeMembers(int year)
     { /* to be implemented in part (b) */
         for (int i = memberList.size()-1; i >= 0; i--) {
-            if (memberList.get(i).getGradYear() > year) {
+            if (memberList.get(i).getGradYear() <= year) {
                 memberList.remove(i);
             }
         }
         ArrayList<MemberInfo> goodStandingMembers =  new ArrayList<MemberInfo>();
         for (int i = 0; i < memberList.size(); i++) {
-            if (!memberList.get(i).inGoodStanding()) {
+            if (memberList.get(i).inGoodStanding()) {
                 goodStandingMembers.add(memberList.get(i));
             }
         }
         return goodStandingMembers;
+    }
+
+    public ArrayList<MemberInfo> getMemberList() {
+        return memberList;
     }
 // There may be instance variables, constructors, and methods that are not shown.
 }
